@@ -1,0 +1,75 @@
+[0m11:23:05.280340 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf33650aba0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf334f7fed0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf334f7fb10>]}
+
+
+============================== 11:23:05.285163 | 8a5bafca-f794-4a4e-91a2-53fcae69f3f5 ==============================
+[0m11:23:05.285163 [info ] [MainThread]: Running with dbt=1.12.5
+[0m11:23:05.286032 [debug] [MainThread]: running dbt with arguments {'version_check': 'True', 'profiles_dir': '/home/maya/.dbt', 'log_path': 'logs', 'quiet': 'False', 'log_format': 'default', 'static_parser': 'True', 'partial_parse': 'True', 'invocation_command': 'dbt init energy_dbt', 'hints_enabled': 'True', 'indirect_selection': 'eager', 'debug': 'False', 'warn_error': 'None', 'no_print': 'None', 'log_cache_events': 'False', 'target_path': 'None', 'cache_selected_only': 'False', 'write_json': 'True', 'introspect': 'True', 'send_anonymous_usage_stats': 'True', 'maximum_seed_size_mib': '1', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'use_experimental_parser': 'False', 'empty': 'None', 'printer_width': '80', 'use_colors': 'True', 'fail_fast': 'False'}
+[0m11:23:05.300541 [info ] [MainThread]: Creating dbt configuration folder at /home/maya/.dbt
+[0m11:23:05.302440 [debug] [MainThread]: Starter project path: /home/maya/miniconda3/lib/python3.13/site-packages/dbt/include/starter_project
+[0m11:23:05.305280 [info ] [MainThread]: Setting up your profile.
+[0m11:23:11.724758 [info ] [MainThread]: Profile energy_dbt written to /home/maya/.dbt/profiles.yml using target's sample configuration. Once updated, you'll be able to start developing with dbt.
+[0m11:23:11.726572 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m11:23:11.727381 [info ] [MainThread]: dbt version: 1.12.5
+[0m11:23:11.727821 [info ] [MainThread]: python version: 3.13.11
+[0m11:23:11.728215 [info ] [MainThread]: python path: /home/maya/miniconda3/bin/python3.13
+[0m11:23:11.729478 [info ] [MainThread]: os info: Linux-7.0.0-34-generic-x86_64-with-glibc2.39
+[0m11:23:11.814291 [info ] [MainThread]: Using profiles dir at /home/maya/.dbt
+[0m11:23:11.814919 [info ] [MainThread]: Using profiles.yml file at /home/maya/.dbt/profiles.yml
+[0m11:23:11.815334 [info ] [MainThread]: Using dbt_project.yml file at /home/maya/github/Finnish-energy-pipeline/energy_dbt/dbt_project.yml
+[0m11:23:11.817152 [info ] [MainThread]: adapter type: duckdb
+[0m11:23:11.817749 [info ] [MainThread]: adapter version: 1.11.0
+[0m11:23:11.973491 [info ] [MainThread]: Configuration:
+[0m11:23:11.974055 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m11:23:11.974459 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m11:23:11.974791 [info ] [MainThread]: Required dependencies:
+[0m11:23:11.975143 [debug] [MainThread]: Executing "git --help"
+[0m11:23:11.980360 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]\n           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]\n           [--config-env=<name>=<envvar>] <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone     Clone a repository into a new directory\n   init      Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add       Add file contents to the index\n   mv        Move or rename a file, a directory, or a symlink\n   restore   Restore working tree files\n   rm        Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect    Use binary search to find the commit that introduced a bug\n   diff      Show changes between commits, commit and working tree, etc\n   grep      Print lines matching a pattern\n   log       Show commit logs\n   show      Show various types of objects\n   status    Show the working tree status\n\ngrow, mark and tweak your common history\n   branch    List, create, or delete branches\n   commit    Record changes to the repository\n   merge     Join two or more development histories together\n   rebase    Reapply commits on top of another base tip\n   reset     Reset current HEAD to the specified state\n   switch    Switch branches\n   tag       Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch     Download objects and refs from another repository\n   pull      Fetch from and integrate with another repository or a local branch\n   push      Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m11:23:11.981242 [debug] [MainThread]: STDERR: "b''"
+[0m11:23:11.981867 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m11:23:11.982494 [info ] [MainThread]: Connection:
+[0m11:23:11.983090 [info ] [MainThread]:   database: dev
+[0m11:23:11.983627 [info ] [MainThread]:   schema: main
+[0m11:23:11.984232 [info ] [MainThread]:   path: dev.duckdb
+[0m11:23:11.984789 [info ] [MainThread]:   config_options: None
+[0m11:23:11.985657 [info ] [MainThread]:   extensions: None
+[0m11:23:11.986156 [info ] [MainThread]:   settings: {}
+[0m11:23:11.986543 [info ] [MainThread]:   external_root: .
+[0m11:23:11.986905 [info ] [MainThread]:   use_credential_provider: None
+[0m11:23:11.987256 [info ] [MainThread]:   attach: None
+[0m11:23:11.987600 [info ] [MainThread]:   filesystems: None
+[0m11:23:11.987958 [info ] [MainThread]:   remote: None
+[0m11:23:11.988303 [info ] [MainThread]:   plugins: None
+[0m11:23:11.988641 [info ] [MainThread]:   disable_transactions: False
+[0m11:23:11.989209 [info ] [MainThread]: Registered adapter: duckdb=1.11.0
+[0m11:23:12.054287 [debug] [MainThread]: Acquiring new duckdb connection 'debug'
+[0m11:23:12.091844 [debug] [MainThread]: Using duckdb connection "debug"
+[0m11:23:12.092414 [debug] [MainThread]: On debug: select 1 as id
+[0m11:23:12.093023 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m11:23:12.117081 [debug] [MainThread]: SQL status: OK in 0.024 seconds
+[0m11:23:12.118682 [debug] [MainThread]: On debug: Close
+[0m11:23:12.119366 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m11:23:12.120154 [info ] [MainThread]: [32mAll checks passed![0m
+[0m11:23:12.120934 [info ] [MainThread]: Your new dbt project "energy_dbt" was created!
+Initialized new project in /home/maya/github/Finnish-energy-pipeline/energy_dbt/energy_dbt
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m11:23:12.123910 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 6.9812365, "process_in_blocks": "15352", "process_kernel_time": 0.216028, "process_mem_max_rss": "148660", "process_out_blocks": "104", "process_user_time": 2.658658}
+[0m11:23:12.124783 [debug] [MainThread]: Command `dbt init` succeeded at 11:23:12.124603 after 6.98 seconds
+[0m11:23:12.125355 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m11:23:12.125989 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf334f17ce0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf335035fd0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7cf3291ba8b0>]}
+[0m11:23:12.126669 [debug] [MainThread]: Flushing usage events
+[0m11:23:13.031436 [debug] [MainThread]: An error was encountered while trying to flush usage events
