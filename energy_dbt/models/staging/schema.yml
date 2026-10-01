@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_prices
+    columns:
+      - name: time
+        data_tests:
+          - unique
+          - not_null
+      - name: price_eur_mwh
+        data_tests:
+          - not_null
+
+  - name: stg_consumption
+    columns:
+      - name: time
+        data_tests:
+          - unique
+          - not_null
+      - name: consumption_mw
+        data_tests:
+          - not_null
+
+  - name: stg_weather
+    columns:
+      - name: time
+        data_tests:
+          - not_null
+      - name: temperature_c
+        data_tests:
+          - not_null:
+              config:
+                severity: warn
+      - name: wind_speed_ms
+        data_tests:
+          - not_null:
+              config:
+                severity: warn

@@ -17,7 +17,9 @@ weather AS (
     SELECT
     time as hour,
     AVG(temperature_c) AS avg_temperature_c,
-    AVG(wind_speed_ms) AS avg_wind_speed_ms
+    AVG(wind_speed_ms) AS avg_wind_speed_ms,
+    COUNT(temperature_c) AS temperature_station_count,
+    COUNT(wind_speed_ms) AS wind_station_count
     FROM {{ ref('stg_weather') }}
     GROUP by hour
 )
@@ -26,7 +28,9 @@ consumption.hour AS hour,
 ROUND(avg_consumption_mw, 2) AS avg_consumption_mw,
 ROUND(avg_price_eur_mwh, 2) AS avg_price_eur_mwh,
 ROUND(avg_temperature_c, 2) AS avg_temperature_c,
-ROUND(avg_wind_speed_ms, 2) AS avg_wind_speed_ms
+ROUND(avg_wind_speed_ms, 2) AS avg_wind_speed_ms,
+temperature_station_count,
+wind_station_count
 FROM consumption
 JOIN prices ON consumption.hour = prices.hour
 JOIN weather ON consumption.hour = weather.hour

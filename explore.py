@@ -1,20 +1,25 @@
 import duckdb
 
-con = duckdb.connect()  # a temporary in-memory database
+con = duckdb.connect("data/warehouse.duckdb")
 
-result = con.sql("""
-    SELECT date, station, COUNT(*) AS rows
-    FROM read_parquet('data/staging/fmi/weather/*/*/data.parquet')
-    GROUP BY date, station
-    ORDER BY date, station
-""")
-print(result)
+print(con.sql("""
+    SELECT
+        date_trunc('hour', time) AS hour,
+        AVG(consumption_mw)      AS consumption_mw
+    FROM stg_consumption
+    GROUP BY hour
+    ORDER BY hour
+    LIMIT 5
+"""))
 
-result = con.sql("""
-    SELECT date, COUNT(*) AS slots, MIN(time) AS first_slot, MAX(time) AS last_slot,
-           ROUND(AVG(price_eur_mwh), 2) AS avg_price
-    FROM read_parquet('data/staging/entsoe/day_ahead_prices/*/data.parquet')
-    GROUP BY date
-    ORDER BY date
-""")
-print(result)
+
+print(con.sql("SELECT * FROM fct_hourly_energy ORDER BY hour LIMIT 24"))
+
+print(con.sql("""
+    SELECT station, COUNT(*) AS missing_wind_hours
+    FROM stg_weather
+    WHERE wind_speed_ms IS NULL
+    GROUP BY station
+"""))
+
+con.close()
