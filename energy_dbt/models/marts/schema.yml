@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: fct_hourly_energy
+    columns:
+      - name: hour
+        data_tests:
+          - unique
+          - not_null
+      - name: avg_consumption_mw
+        data_tests:
+          - not_null
+      - name: avg_price_eur_mwh
+        data_tests:
+          - not_null
