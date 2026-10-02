@@ -22,4 +22,14 @@ print(con.sql("""
     GROUP BY station
 """))
 
+print(con.sql("""
+    SELECT
+        CAST(time AT TIME ZONE 'UTC' AS DATE)  AS day,
+        COUNT(*)                               AS rows,
+        SUM(resolution_minutes)                AS total_minutes
+    FROM stg_consumption
+    GROUP BY day
+    HAVING total_minutes <> 1440
+    ORDER BY day
+"""))
 con.close()

@@ -7,6 +7,10 @@ from pathlib import Path
 import argparse
 from datetime import date, timedelta
 
+REQUEST_INTERVAL = 2.5
+RETRY_STATUSES = {429, 500, 502, 503, 504}
+MAX_ATTEMPTS = 4
+
 BASE_URL = "https://data.fingrid.fi/api"
 DATASET_ID = 124
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -29,9 +33,14 @@ def fetch_page(start, end, page):
         "pageSize": 10000,
     }
 
-    response = requests.get(url, headers=headers, params=params, timeout=30)
-    response.raise_for_status()
-    return response.json()
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        response = requests.get(url, headers=headers, params=params, timeout=30)
+        if response.status_code not in RETRY_STATUSES or attempt == MAX_ATTEMPTS:
+            response.raise_for_status()
+            return response.json()
+        wait = 5 * 2 ** (attempt - 1)  # 5, 10, 20 seconds
+        print(f"Got {response.status_code}, retrying in {wait}s (attempt {attempt})")
+        time.sleep(wait)
 
 # fetching data from all pages
 def fetch_all_pages(start, end):
@@ -45,7 +54,7 @@ def fetch_all_pages(start, end):
         page = res["pagination"]["nextPage"]
         if page is None:
             break
-        time.sleep(2) 
+        time.sleep(REQUEST_INTERVAL) 
         
     return records
 
@@ -85,7 +94,7 @@ def main():
     while day <= end_day:
         ingest_day(day)
         day += timedelta(days=1)
-        time.sleep(2)  
+        time.sleep(REQUEST_INTERVAL)  
 
 
 if __name__ == "__main__":
