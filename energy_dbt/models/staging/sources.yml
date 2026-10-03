@@ -1,0 +1,22 @@
+version: 2
+
+sources:
+  - name: pipeline
+    tables:
+      - name: fingrid_consumption
+        meta:
+          external_location: "read_json('../data/raw/fingrid/consumption/*/data.json')"
+          dagster:
+            asset_key: ["raw_fingrid_consumption"]
+
+      - name: entsoe_prices
+        meta:
+          external_location: "read_parquet('../data/staging/entsoe/day_ahead_prices/*/data.parquet')"
+          dagster:
+            asset_key: ["staging_entsoe_prices"]
+
+      - name: fmi_weather
+        meta:
+          external_location: "read_parquet('../data/staging/fmi/weather/*/*/data.parquet')"
+          dagster:
+            asset_key: ["staging_fmi_weather"]

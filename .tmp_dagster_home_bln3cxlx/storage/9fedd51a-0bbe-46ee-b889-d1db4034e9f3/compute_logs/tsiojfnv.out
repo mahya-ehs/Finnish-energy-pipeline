@@ -1,0 +1,66 @@
+Running with dbt=1.12.5
+Registered adapter: duckdb=1.11.0
+Found 4 models, 17 data tests, 1 seed, 3 sources, 500 macros
+
+Concurrency: 1 threads (target='dev')
+
+1 of 22 START sql table model main.stg_consumption ............................. [RUN]
+1 of 22 OK created sql table model main.stg_consumption ........................ [[32mOK[0m in 0.49s]
+2 of 22 START sql table model main.stg_prices .................................. [RUN]
+2 of 22 OK created sql table model main.stg_prices ............................. [[32mOK[0m in 0.22s]
+3 of 22 START sql table model main.stg_weather ................................. [RUN]
+3 of 22 OK created sql table model main.stg_weather ............................ [[32mOK[0m in 0.39s]
+4 of 22 START seed file main.known_source_gaps ................................. [RUN]
+4 of 22 OK loaded seed file main.known_source_gaps ............................. [[32mINSERT 2[0m in 0.14s]
+5 of 22 START test not_null_stg_consumption_consumption_mw ..................... [RUN]
+5 of 22 PASS not_null_stg_consumption_consumption_mw ........................... [[32mPASS[0m in 0.09s]
+6 of 22 START test not_null_stg_consumption_time ............................... [RUN]
+6 of 22 PASS not_null_stg_consumption_time ..................................... [[32mPASS[0m in 0.04s]
+7 of 22 START test unique_stg_consumption_time ................................. [RUN]
+7 of 22 PASS unique_stg_consumption_time ....................................... [[32mPASS[0m in 0.05s]
+8 of 22 START test assert_prices_complete_days ................................. [RUN]
+8 of 22 PASS assert_prices_complete_days ....................................... [[32mPASS[0m in 0.04s]
+9 of 22 START test not_null_stg_prices_price_eur_mwh ........................... [RUN]
+9 of 22 PASS not_null_stg_prices_price_eur_mwh ................................. [[32mPASS[0m in 0.04s]
+10 of 22 START test not_null_stg_prices_time ................................... [RUN]
+10 of 22 PASS not_null_stg_prices_time ......................................... [[32mPASS[0m in 0.04s]
+11 of 22 START test unique_stg_prices_time ..................................... [RUN]
+11 of 22 PASS unique_stg_prices_time ........................................... [[32mPASS[0m in 0.05s]
+12 of 22 START test assert_weather_unique_time_station ......................... [RUN]
+12 of 22 PASS assert_weather_unique_time_station ............................... [[32mPASS[0m in 0.05s]
+13 of 22 START test not_null_stg_weather_temperature_c ......................... [RUN]
+13 of 22 WARN 31 not_null_stg_weather_temperature_c ............................ [[33mWARN 31[0m in 0.04s]
+14 of 22 START test not_null_stg_weather_time .................................. [RUN]
+14 of 22 PASS not_null_stg_weather_time ........................................ [[32mPASS[0m in 0.04s]
+15 of 22 START test not_null_stg_weather_wind_speed_ms ......................... [RUN]
+15 of 22 WARN 9687 not_null_stg_weather_wind_speed_ms .......................... [[33mWARN 9687[0m in 0.04s]
+16 of 22 START test assert_consumption_complete_days ........................... [RUN]
+16 of 22 PASS assert_consumption_complete_days ................................. [[32mPASS[0m in 0.06s]
+17 of 22 START sql table model main.fct_hourly_energy .......................... [RUN]
+17 of 22 OK created sql table model main.fct_hourly_energy ..................... [[32mOK[0m in 0.16s]
+18 of 22 START test assert_enough_weather_stations ............................. [RUN]
+18 of 22 PASS assert_enough_weather_stations ................................... [[32mPASS[0m in 0.03s]
+19 of 22 START test not_null_fct_hourly_energy_avg_consumption_mw .............. [RUN]
+19 of 22 PASS not_null_fct_hourly_energy_avg_consumption_mw .................... [[32mPASS[0m in 0.04s]
+20 of 22 START test not_null_fct_hourly_energy_avg_price_eur_mwh ............... [RUN]
+20 of 22 PASS not_null_fct_hourly_energy_avg_price_eur_mwh ..................... [[32mPASS[0m in 0.04s]
+21 of 22 START test not_null_fct_hourly_energy_hour ............................ [RUN]
+21 of 22 PASS not_null_fct_hourly_energy_hour .................................. [[32mPASS[0m in 0.04s]
+22 of 22 START test unique_fct_hourly_energy_hour .............................. [RUN]
+22 of 22 PASS unique_fct_hourly_energy_hour .................................... [[32mPASS[0m in 0.04s]
+
+Finished running 1 seed, 4 table models, 17 data tests in 0 hours 0 minutes and 2.57 seconds (2.57s).
+
+[33mCompleted with 2 warnings:[0m
+
+[[33mWARNING[0m]: in test not_null_stg_weather_temperature_c (models/staging/schema.yml)
+[[33mWARNING[0m]: Got 31 results, configured to warn if != 0
+
+  compiled code at target/energy_dbt_assets-9fedd51-8042165/compiled/energy_dbt/models/staging/schema.yml/not_null_stg_weather_temperature_c.sql
+
+[[33mWARNING[0m]: in test not_null_stg_weather_wind_speed_ms (models/staging/schema.yml)
+[[33mWARNING[0m]: Got 9687 results, configured to warn if != 0
+
+  compiled code at target/energy_dbt_assets-9fedd51-8042165/compiled/energy_dbt/models/staging/schema.yml/not_null_stg_weather_wind_speed_ms.sql
+
+Done. PASS=20 WARN=2 ERROR=0 SKIP=0 NO-OP=0 REUSED=0 TOTAL=22
