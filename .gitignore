@@ -1,3 +1,6 @@
 data/
 .env
 __pycache__/
+.tmp_dagster_home_*/
+energy_dbt/target/
+energy_dbt/logs/

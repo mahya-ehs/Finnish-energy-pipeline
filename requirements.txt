@@ -1,0 +1,9 @@
+requests
+python-dotenv 
+pandas
+pyarrow
+duckdb
+dbt-duckdb==1.11.0
+dagster
+dagster-webserver
+dagster-dbt 

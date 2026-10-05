@@ -45,8 +45,19 @@ def staging_fmi_weather():
 @dbt_assets(manifest=dbt_project.manifest_path)
 def energy_dbt_assets(context: dg.AssetExecutionContext, dbt: DbtCliResource):
     yield from dbt.cli(["build"], context=context).stream()
+
     
-        
+daily_job = dg.define_asset_job(
+    name="daily_pipeline",
+    selection=dg.AssetSelection.all(),
+)
+
+daily_schedule = dg.ScheduleDefinition(
+    job=daily_job,
+    cron_schedule="0 7 * * *",
+    execution_timezone="Europe/Helsinki",
+)
+
 defs = dg.Definitions(
     assets=[
         raw_fingrid_consumption,
@@ -57,4 +68,6 @@ defs = dg.Definitions(
         energy_dbt_assets,
     ],
     resources={"dbt": DbtCliResource(project_dir=dbt_project)},
+    jobs=[daily_job],
+    schedules=[daily_schedule],
 )

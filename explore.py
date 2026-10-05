@@ -2,34 +2,42 @@ import duckdb
 
 con = duckdb.connect("data/warehouse.duckdb")
 
-print(con.sql("""
-    SELECT
-        date_trunc('hour', time) AS hour,
-        AVG(consumption_mw)      AS consumption_mw
-    FROM stg_consumption
-    GROUP BY hour
-    ORDER BY hour
-    LIMIT 5
-"""))
-
-
-print(con.sql("SELECT * FROM fct_hourly_energy ORDER BY hour LIMIT 24"))
-
-print(con.sql("""
-    SELECT station, COUNT(*) AS missing_wind_hours
-    FROM stg_weather
-    WHERE wind_speed_ms IS NULL
-    GROUP BY station
-"""))
 
 print(con.sql("""
     SELECT
-        CAST(time AT TIME ZONE 'UTC' AS DATE)  AS day,
-        COUNT(*)                               AS rows,
-        SUM(resolution_minutes)                AS total_minutes
-    FROM stg_consumption
-    GROUP BY day
-    HAVING total_minutes <> 1440
-    ORDER BY day
+        ROUND(avg_wind_speed_ms)          AS wind_ms,
+        COUNT(*)                          AS hours,
+        ROUND(AVG(avg_price_eur_mwh), 1)  AS avg_price
+    FROM fct_hourly_energy
+    GROUP BY wind_ms
+    ORDER BY wind_ms
 """))
+print(con.sql("""
+    SELECT
+        FLOOR(avg_temperature_c / 5) * 5   AS temp_from_c,
+        COUNT(*)                           AS hours,
+        ROUND(AVG(avg_consumption_mw))     AS avg_consumption,
+        ROUND(AVG(avg_price_eur_mwh), 1)   AS avg_price
+    FROM fct_hourly_energy
+    GROUP BY temp_from_c
+    ORDER BY temp_from_c
+"""))
+
+print(con.sql("""
+    SELECT
+        hour(hour AT TIME ZONE 'Europe/Helsinki')  AS hour_finland,
+        ROUND(AVG(avg_consumption_mw))             AS avg_consumption,
+        ROUND(AVG(avg_price_eur_mwh), 1)           AS avg_price
+    FROM fct_hourly_energy
+    GROUP BY hour_finland
+    ORDER BY hour_finland
+"""))
+
+print(con.sql(
+   """
+    SELECT
+        *
+    FROM fct_hourly_energy
+""" 
+))
 con.close()
